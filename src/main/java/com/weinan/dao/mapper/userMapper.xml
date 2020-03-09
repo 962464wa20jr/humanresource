@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weinan.dao.UserDao">
+	<resultMap id="BaseResultMap" type="com.weinan.entity.User">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="name" property="name" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="staff_code" property="staffCode" jdbcType="VARCHAR" />
+		<result column="birthday" property="birthday" jdbcType="DATE" />
+		<result column="sex" property="sex" jdbcType="TINYINT" />
+		<result column="nation" property="nation" jdbcType="VARCHAR" />
+		<result column="school" property="school" jdbcType="VARCHAR" />
+		<result column="place_of_domicile" property="domicile" jdbcType="VARCHAR" />
+		<result column="id_card_number" property="idCard" jdbcType="VARCHAR" />
+		<result column="create_time" property="createTime" jdbcType="DATE" />
+		<result column="address" property="address" jdbcType="VARCHAR" />
+		<result column="phone_number" property="phoneNumber" jdbcType="VARCHAR" />
+		<result column="country" property="country" jdbcType="VARCHAR" />
+		<result column="update_time" property="updateTime" jdbcType="DATE" />
+		<result column="status" property="status" jdbcType="TINYINT" />
+		<result column="salt" property="salt" jdbcType="VARCHAR" />
+		<result column="last_login_time" property="lastLoginTime" jdbcType="DATE" />
+		<result column="department_name" property="departmentName" jdbcType="BIGINT" />
+		<result column="is_married" property="isMarried" jdbcType="TINYINT" />
+		<result column="politic" property="politic" jdbcType="VARCHAR" />
+		<result column="native_place" property="nativePlace" jdbcType="VARCHAR" />
+		<result column="education" property="education" jdbcType="TINYINT" />
+		<result column="email" property="email" jdbcType="VARCHAR" />
+		<collection property="roles" select="com.weinan.dao.RoleDao.getUserRole" column="id"/>
+	</resultMap>
+	<sql id="Base_Column_List" >
+		u.id,name,password,staff_code,birthday,sex,nation,school,place_of_domicile,id_card_number,u.create_time,address,phone_number,country,status,
+		u.update_time,salt,last_login_time,department_name,is_married,politic,native_place,education,email
+	</sql>
+	<!-- 根据staff_code查询数据 -->
+	<select id="findUserByStaffCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
+		select
+		<include refid="Base_Column_List" />
+		from t_user u,t_department d
+		where staff_code = #{staffCode,jdbcType=VARCHAR}
+			  and  u.department_id = d.id
+	</select>
+	
+	
+	
+</mapper>
