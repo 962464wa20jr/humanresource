@@ -13,7 +13,7 @@
 		id,department_name,department_count,department_desc,create_time,update_time
 	</sql>
 	<!-- 根据departmentId查询数据 -->
-	<select id="getDepartmentById" resultMap="BaseResultMap" parameterType="java.math.BigInteger" >
+	<select id="getDepartmentById" resultMap="BaseResultMap" parameterType="java.lang.Long" >
 		select
 		<include refid="Base_Column_List" />
 		from t_department
@@ -21,4 +21,7 @@
 
 	</select>
 	
+	<select id="getIdByDepartmentName" resultType="java.lang.Long">
+	 select id from t_department where department_name = #{department,jdbcType=VARCHAR}
+	</select>
 </mapper>

@@ -7,6 +7,6 @@ import com.weinan.entity.Permission;
 
 public interface PermissionService {
 	
-	public List<Permission> getRolePermission(BigInteger roleId);
+	public List<Permission> getRolePermission(Long roleId);
 
 }

@@ -10,19 +10,19 @@ public class UserRole extends BasicEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-    private BigInteger id; //id
-    private BigInteger userId; //用户ID
-    private BigInteger roleId; //角色ID
-	public BigInteger getUserId() {
+    private Long id; //id
+    private Long userId; //用户ID
+    private Long roleId; //角色ID
+	public Long getUserId() {
 		return userId;
 	}
-	public void setUserId(BigInteger userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
-	public BigInteger getRoleId() {
+	public Long getRoleId() {
 		return roleId;
 	}
-	public void setRoleId(BigInteger roleId) {
+	public void setRoleId(Long roleId) {
 		this.roleId = roleId;
 	}
     

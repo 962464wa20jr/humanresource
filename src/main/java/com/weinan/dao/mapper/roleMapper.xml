@@ -9,8 +9,7 @@
 	<sql id="Base_Column_List" >
 		id,role,description
 	</sql>
-	<!-- 根据staff_code查询数据 -->
-	<select id="getUserRole" resultMap="BaseResultMap" parameterType="java.math.BigInteger" >
+	<select id="getUserRole" resultMap="BaseResultMap" parameterType="java.lang.Long" >
 		select
 		<include refid="Base_Column_List" />
 		from sys_role
@@ -21,5 +20,22 @@
 		) 
 
 	</select>
+	<!-- 根据角色名获取Role -->
+	<select id="getRoleByName" resultType="com.weinan.entity.Role">
+	 	select distinct  * from sys_role where description = #{role,jdbcType=VARCHAR}
+	</select>
 	
+	<!-- 增加用户角色表记录 -->
+	<insert id="insertUserRole">
+		insert into sys_user_role(user_id,role_id) 
+		values(
+			#{userId,jdbcType=BIGINT},
+			#{roleId,jdbcType=BIGINT}
+		)
+	</insert>
+	
+	<!-- 获取角色列表 -->
+	<select id="getAllRole" resultType="com.weinan.entity.Role">
+		select * from sys_role
+	</select>
 </mapper>

@@ -11,7 +11,7 @@ public class User extends BasicEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private BigInteger id; //员工Id
+	private Long id; //员工Id
 	private String staffCode; //员工编码(即userName)
 	private String name; //员工姓名
 	private String password; //登录密码
@@ -25,6 +25,7 @@ public class User extends BasicEntity {
 	private String Country; //国籍
 	private String nation; //民族
 	private String salt; //盐值（密码加密用，由shiro创建）
+	private Long departmentId;//部门Id
 	private String departmentName; //部门 
 	private Date birthday; //生日
 	private Date createTime; //入职时间
@@ -36,10 +37,11 @@ public class User extends BasicEntity {
 	private Byte education;//学历(1:专科,2:本科,3:硕士,4:博士)
 	private String politic;//政治面貌
 	private List<Role> roles;//角色
-	public BigInteger getId() {
+	private String image;//照片
+	public Long getId() {
 		return id;
 	}
-	public void setId(BigInteger id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getStaffCode() {
@@ -51,7 +53,7 @@ public class User extends BasicEntity {
 	public String getName() {
 		return name;
 	}
-	public void setUserName(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 	public String getPassword() {
@@ -138,7 +140,7 @@ public class User extends BasicEntity {
 	public void setLastLoginTime(Date lastLoginTime) {
 		this.lastLoginTime = lastLoginTime;
 	}
-	public int getStatus() {
+	public Byte getStatus() {
 		return status;
 	}
 	public void setStatus(Byte status) {
@@ -188,6 +190,18 @@ public class User extends BasicEntity {
 	}
 	public void setEducation(Byte education) {
 		this.education = education;
+	}
+	public Long getDepartmentId() {
+		return departmentId;
+	}
+	public void setDepartmentId(Long departmentId) {
+		this.departmentId = departmentId;
+	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
 	}
 	
 	

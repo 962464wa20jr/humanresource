@@ -39,18 +39,24 @@ public class ShiroConfig {
 	public ShiroFilterFactoryBean shiroFilter(SecurityManager securityManager) {
 		ShiroFilterFactoryBean shiroFilterFactoryBean = new ShiroFilterFactoryBean();
 		shiroFilterFactoryBean.setSecurityManager(securityManager);
-		Map<String,Filter> filter = new HashMap<>();
-		filter.put("custom", new ShiroUserFilter());
-		shiroFilterFactoryBean.setFilters(filter);
+//		Map<String,Filter> filter = shiroFilterFactoryBean.getFilters();
+//		filter.put("custom", new MyAuthenticationFilter());
+//		shiroFilterFactoryBean.setFilters(filter);
 		Map<String,String> filterChainDefinitionMap = new LinkedHashMap<>();
 		filterChainDefinitionMap.put("/login", "anon");
+		filterChainDefinitionMap.put("/register", "anon");
+		filterChainDefinitionMap.put("/getRole", "anon");
+		filterChainDefinitionMap.put("/getMessage", "user");
+		filterChainDefinitionMap.put("/imageUpload", "anon");
 //		filterChainDefinitionMap.put("/static/**", "anon");
 		filterChainDefinitionMap.put("/swagger-resources/**", "anon");
 		filterChainDefinitionMap.put("/webjars/**", "anon");
 		filterChainDefinitionMap.put("/v2/**", "anon");
 		filterChainDefinitionMap.put("/swagger-ui.html/**", "anon");
-		filterChainDefinitionMap.put("/**", "custom");
+		filterChainDefinitionMap.put("/**", "authc");
 		filterChainDefinitionMap.put("/logout", "logout");
+		
+		
 		
 		
 		

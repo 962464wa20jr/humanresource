@@ -10,19 +10,19 @@ public class RolePermission extends BasicEntity {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private BigInteger id; //id
-	private BigInteger roleId; //角色ID
-	private BigInteger permissionId; //权限ID
-	public BigInteger getRoleId() {
+	private Long id; //id
+	private Long roleId; //角色ID
+	private Long permissionId; //权限ID
+	public Long getRoleId() {
 		return roleId;
 	}
-	public void setRoleId(BigInteger roleId) {
+	public void setRoleId(Long roleId) {
 		this.roleId = roleId;
 	}
-	public BigInteger getPermissionId() {
+	public Long getPermissionId() {
 		return permissionId;
 	}
-	public void setPermissionId(BigInteger permissionId) {
+	public void setPermissionId(Long permissionId) {
 		this.permissionId = permissionId;
 	}
 	

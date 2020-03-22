@@ -1,6 +1,7 @@
 package com.weinan.common;
 
-
+import java.util.Calendar;
+import java.util.Date;
 
 public class Contant {
     //一天的毫秒数
@@ -82,6 +83,11 @@ public class Contant {
 
     //排序
     public static final String ORDER_BY_GOAL = "totalGoal";
+    
+    // 月份转化为英文
+    public static final String[] MONTH_STR = {"Jan","Feb","Mar","Apr","May","June","July","Aug","Sept","Oct","Nov","Dec"};
+    
+
 }
 
 

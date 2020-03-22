@@ -13,13 +13,13 @@ public class BasicEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    protected BigInteger id;
+    protected Long id;
 
-    public BigInteger getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(BigInteger id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

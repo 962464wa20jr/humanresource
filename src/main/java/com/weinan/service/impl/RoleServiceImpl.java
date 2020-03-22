@@ -18,9 +18,27 @@ public class RoleServiceImpl implements RoleService {
 	private RoleDao roleDao;
 
 	@Override
-	public List<Role> getUserRole(BigInteger userId) {
+	public List<Role> getUserRole(Long userId) {
 		// TODO Auto-generated method stub
 		return roleDao.getUserRole(userId);
+	}
+
+	@Override
+	public Role getRoleByName(String role) {
+		// TODO Auto-generated method stub
+		return roleDao.getRoleByName(role);
+	}
+
+	@Override
+	public int insertUserRole(Long userId, Long roleId) {
+		// TODO Auto-generated method stub
+		return roleDao.insertUserRole(userId, roleId);
+	}
+
+	@Override
+	public List<Role> getAllRole() {
+		// TODO Auto-generated method stub
+		return roleDao.getAllRole();
 	}
 
 }

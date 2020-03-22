@@ -1,5 +1,6 @@
 package com.weinan.service.impl;
 
+import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -15,6 +16,7 @@ import org.apache.shiro.subject.Subject;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
+import com.weinan.common.util.AgeUtils;
 import com.weinan.dao.UserDao;
 import com.weinan.entity.User;
 import com.weinan.exception.LoginException;
@@ -42,6 +44,11 @@ public class UserServiceImpl implements UserService {
 		try{
 			currentUser.login(token);
 			User user = (User)currentUser.getPrincipals().getPrimaryPrincipal();
+			if(user.getStatus() == 0 || user.getStatus() == 2) {
+				if(user.getStatus() == 0) userVO.setStatus((byte)0);
+				else userVO.setStatus((byte)2);
+				return userVO;
+			}
 			userVO.setToken(currentUser.getSession().getId().toString());
 			BeanUtils.copyProperties(user, userVO);
 			System.out.println(userVO.getCountry());
@@ -79,7 +86,7 @@ public class UserServiceImpl implements UserService {
 				}
 			}
 			if(userVO.getBirthday() != null) {
-				userVO.setAge(getAgeByBirthday(userVO.getBirthday()));
+				userVO.setAge(AgeUtils.getAgeByBirthday(userVO.getBirthday()));
 			}
 //			if(userVO.getBirthday() != null) {
 //				String pattern = "YYYY-MM-DD";
@@ -105,30 +112,23 @@ public class UserServiceImpl implements UserService {
 		
 	}
 	
-	public int getAgeByBirthday(Date birthday) {
-		int age = 0;
-		Calendar cal = Calendar.getInstance();
-		if(cal.before(birthday)) {
-			throw new IllegalArgumentException("The birthDay is before Now.It's unbelievable!");
-		}
-		int currentYear = cal.get(Calendar.YEAR);
-		int currentMonth = cal.get(Calendar.MONTH);
-		int currentDay = cal.get(Calendar.DAY_OF_MONTH);
-		cal.setTime(birthday);
-		int birthYear = cal.get(Calendar.YEAR);
-		int birthMonth = cal.get(Calendar.MONTH);
-		int birthDay = cal.get(Calendar.DAY_OF_MONTH);
-		age = currentYear - birthYear;
-		if(currentMonth <= birthMonth) {
-			if(currentMonth == birthMonth) {
-				if(currentDay < birthDay) {
-					age--;
-				}
-			}else {
-				age--;
-			}
-		}
-		return age;
+	
+	@Override
+	public Long insert(User user) {
+		// TODO Auto-generated method stub
+		return userDao.insert(user);
+	}
+
+	@Override
+	public User findUserByUserId(Long userId) {
+		// TODO Auto-generated method stub
+		return userDao.findUserByUserId(userId);
+	}
+
+	@Override
+	public int update(User user) {
+		// TODO Auto-generated method stub
+		return userDao.update(user);
 	}
 
 	

@@ -36,16 +36,18 @@ public class LoginController {
 		
 		try{
 			UserVO loginUser = userService.login(userName, password); 
-			return CommResult.ok(loginUser);
+			if(loginUser.getStatus() == 0) {
+				return CommResult.error("该用户仍未注册通过");
+			}else if(loginUser.getStatus() == 2) {
+				return CommResult.error("该职员已离职");
+			}else {
+				return CommResult.ok(loginUser);
+			}
+			
 		}catch(LoginException e) {
 			return CommResult.error(e.getMessage());
 		}
 		
-	}
-	
-	@PostMapping("/logout")
-	public CommResult logout() {
-		return CommResult.ok();
 	}
 	
 	

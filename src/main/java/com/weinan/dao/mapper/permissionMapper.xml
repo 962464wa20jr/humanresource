@@ -11,7 +11,7 @@
 		id,permission_name,permission,url
 	</sql>
 	<!-- 根据roleId查询数据 -->
-	<select id="getRolePermission" resultMap="BaseResultMap" parameterType="java.math.BigInteger" >
+	<select id="getRolePermission" resultMap="BaseResultMap" parameterType="java.lang.Long" >
 		select
 		<include refid="Base_Column_List" />
 		from sys_permission

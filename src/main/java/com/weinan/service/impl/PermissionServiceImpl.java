@@ -18,7 +18,7 @@ public class PermissionServiceImpl implements PermissionService {
 	private PermissionDao permissionDao;
 	
 	@Override
-	public List<Permission> getRolePermission(BigInteger roleId) {
+	public List<Permission> getRolePermission(Long roleId) {
 		// TODO Auto-generated method stub
 		return permissionDao.getRolePermission(roleId);
 	}

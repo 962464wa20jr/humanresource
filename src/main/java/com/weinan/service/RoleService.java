@@ -7,6 +7,9 @@ import com.weinan.entity.Role;
 
 public interface RoleService {
 	
-	public List<Role> getUserRole(BigInteger userId);
+	public List<Role> getUserRole(Long userId);
+	public Role getRoleByName(String role);
+	public int insertUserRole(Long userId,Long roleId);
+	public List<Role> getAllRole();
 
 }

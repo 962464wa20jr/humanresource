@@ -26,11 +26,12 @@
 		<result column="native_place" property="nativePlace" jdbcType="VARCHAR" />
 		<result column="education" property="education" jdbcType="TINYINT" />
 		<result column="email" property="email" jdbcType="VARCHAR" />
+		<result column="image" property="image" jdbcType="VARCHAR" />
 		<collection property="roles" select="com.weinan.dao.RoleDao.getUserRole" column="id"/>
 	</resultMap>
 	<sql id="Base_Column_List" >
 		u.id,name,password,staff_code,birthday,sex,nation,school,place_of_domicile,id_card_number,u.create_time,address,phone_number,country,status,
-		u.update_time,salt,last_login_time,department_name,is_married,politic,native_place,education,email
+		u.update_time,salt,last_login_time,department_name,is_married,politic,native_place,education,email,image
 	</sql>
 	<!-- 根据staff_code查询数据 -->
 	<select id="findUserByStaffCode" resultMap="BaseResultMap" parameterType="java.lang.String" >
@@ -41,6 +42,74 @@
 			  and  u.department_id = d.id
 	</select>
 	
+	<!-- 根据用户Id查询数据 -->
+	<select id="findUserByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		from t_user u,t_department d
+		where u.id = #{userId,jdbcType=BIGINT}
+			  and  u.department_id = d.id
+	</select>
+	
+	<insert id="insert" parameterType="com.weinan.entity.User">
+		<selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into t_user(name,staff_code,password,salt,department_id,status,sex,phone_number,email,birthday)
+		values (
+			#{name,jdbcType=VARCHAR},
+			#{staffCode,jdbcType=VARCHAR},
+			#{password,jdbcType=VARCHAR},
+			#{salt,jdbcType=VARCHAR},
+			#{departmentId,jdbcType=BIGINT},
+			#{status,jdbcType=TINYINT},
+			#{sex,jdbcType=TINYINT},
+			#{phoneNumber,jdbcType=VARCHAR},
+			#{email,jdbcType=VARCHAR},
+			#{birthday,jdbcType=DATE}
+		)
+	</insert>
+	
+	
+	<update id="update" parameterType="com.weinan.entity.User">
+		update t_user
+		<set>
+			<if test="birthday != null">
+				birthday = #{birthday,jdbcType=DATE},
+			</if>
+			<if test="nativePlace != null">
+				native_place = #{nativePlace,jdbcType=VARCHAR},
+			</if>
+			<if test="country != null">
+				country = #{country,jdbcType=VARCHAR},
+			</if>
+			<if test="nation != null">
+				nation = #{nation,jdbcType=VARCHAR},
+			</if>
+			<if test="isMarried != null">
+				is_married = #{isMarried,jdbcType=TINYINT},
+			</if>
+			<if test="politic != null">
+				politic = #{politic,jdbcType=VARCHAR},
+			</if>
+			<if test="education != null">
+				education = #{education,jdbcType=TINYINT},
+			</if>
+			<if test="school != null">
+				school = #{school,jdbcType=VARCHAR},
+			</if>
+			<if test="domicile != null">
+				place_of_domicile = #{domicile,jdbcType=VARCHAR},
+			</if>
+			<if test="address != null">
+				address = #{address,jdbcType=VARCHAR},
+			</if>
+			<if test="idCard != null">
+				id_card_number = #{idCard,jdbcType=VARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
 	
 	
 </mapper>

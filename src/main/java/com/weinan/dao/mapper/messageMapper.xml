@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.weinan.dao.MessageDao">
+	<resultMap id="BaseResultMap" type="com.weinan.entity.Message">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="user_id" property="userId" jdbcType="BIGINT" />
+		<result column="event" property="event" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="TINYINT" />
+		<result column="create_time" property="createTime" jdbcType="DATE" />
+		<result column="is_done" property="isDone" jdbcType="TINYINT" />
+		<result column="update_time" property="updateTime" jdbcType="DATE" />
+		<result column="transaction_id" property="transactionId" jdbcType="BIGINT" />
+		<collection property="approvers" select="com.weinan.dao.MessageDao.getApprover" column="id"/>
+	</resultMap>
+	<sql id="Base_Column_List" >
+		id,user_id,event,type,create_time,is_done,update_time,transaction_id
+	</sql>
+	<!-- 根据userId查询数据 -->
+	<select id="getMessageByUserId" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+		select
+		<include refid="Base_Column_List" />
+		from sys_message
+		where user_id = #{userId,jdbcType=BIGINT} and is_done  <![CDATA[ <= ]]>  1
+			or
+		id in
+		(
+			select message_id from l_message_approver where approver_id = #{approverId,jdbcType=BIGINT}
+		)
+
+	</select>
+	
+	<select id="getApprover" resultType="com.weinan.entity.User" parameterType="java.lang.Long">
+		select name	from t_user where id in (select approver_id from l_message_approver where message_id = #{messageId,jdbcType=BIGINT} and is_done = 0)
+	</select>
+	
+
+	
+    <insert id="insert" parameterType="com.weinan.entity.Message">
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+       insert into sys_message(user_id,event,type,create_time,transaction_id,update_time)
+       values(
+       		#{userId,jdbcType=BIGINT},
+       		#{event,jdbcType=VARCHAR},
+       		#{type,jdbcType=TINYINT},
+       		#{createTime,jdbcType=DATE},
+       		#{transactionId,jdbcType=BIGINT},
+       		#{updateTime,jdbcType=BIGINT}
+       )
+    </insert>
+    
+    <insert id="insertApprover">
+    	insert into l_message_approver(message_id,approver_id)
+    	values(
+    	 	#{messageId,jdbcType=BIGINT},
+    	 	#{approverId,jdbcType=BIGINT}
+    	)
+    </insert>
+    
+    <update id="update" parameterType="com.weinan.entity.Message">
+    	update sys_message
+    	set is_done = #{isDone,jdbcType=TINYINT}
+    	where id = #{id,jdbcType=BIGINT}
+    </update>
+    
+    <update id="updateLMessageApprover">
+    	update l_message_approver
+    	set is_done = 1
+    	where approver_id = #{approverId,jdbcType=BIGINT} and message_id = #{messageId,jdbcType=BIGINT}
+    
+    </update>
+</mapper>

@@ -11,15 +11,15 @@ public class Permission extends BasicEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private BigInteger id; //权限编号
+	private Long id; //权限编号
 	private String permissionName; //权限名称
 	private String permission; //权限
 	private String url; //对应的url
 	
-	public BigInteger getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(BigInteger id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getPermissionName() {

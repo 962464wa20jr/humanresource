@@ -12,16 +12,16 @@ public class Department extends BasicEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private BigInteger id;//部门Id
+	private Long id;//部门Id
 	private String departmentName;//部门名称
 	private int departmentCount;//部门人数
 	private String departmenteDesc;//部门简述
 	private Date createTime;//创建时间
 	private Date updateTime;//上次更新时间
-	public BigInteger getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(BigInteger id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getDepartmentName() {

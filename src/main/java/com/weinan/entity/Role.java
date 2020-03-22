@@ -11,13 +11,13 @@ public class Role extends BasicEntity {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private BigInteger id; //角色编号
+	private Long id; //角色编号
 	private String role; //角色名称
 	private String description; //角色描述
-	public BigInteger getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(BigInteger id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	public String getRole() {

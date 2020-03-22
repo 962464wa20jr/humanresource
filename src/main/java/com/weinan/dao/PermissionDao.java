@@ -10,6 +10,6 @@ import com.weinan.entity.Permission;
 @Repository
 public interface PermissionDao {
 	
-	public List<Permission> getRolePermission(BigInteger roleId);
+	public List<Permission> getRolePermission(Long roleId);
 
 }

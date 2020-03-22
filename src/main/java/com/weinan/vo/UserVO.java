@@ -13,6 +13,7 @@ public class UserVO implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	private Long id;//员工Id
 	private String staffCode; //员工编码(即userName)
 	private String name; //员工姓名
 	private String school;  //毕业院校
@@ -36,7 +37,9 @@ public class UserVO implements Serializable{
 	private String sexStr; //性别（1：男，2：女） 文字显示
 	private String token; //登录后的令牌token
 	private String politic;//政治面貌
+	private Byte status; //状态（0：未入职，1：入职，2：离职）
 	private List<Role> roles; //职位
+	private String image;//照片
 	public String getStaffCode() {
 		return staffCode;
 	}
@@ -180,6 +183,24 @@ public class UserVO implements Serializable{
 	}
 	public void setAge(int age) {
 		this.age = age;
+	}
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public Byte getStatus() {
+		return status;
+	}
+	public void setStatus(Byte status) {
+		this.status = status;
+	}
+	public String getImage() {
+		return image;
+	}
+	public void setImage(String image) {
+		this.image = image;
 	}
 
 }
